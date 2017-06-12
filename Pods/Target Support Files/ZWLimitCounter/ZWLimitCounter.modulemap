@@ -1,0 +1,6 @@
+framework module ZWLimitCounter {
+  umbrella header "ZWLimitCounter-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "UITextView+ZWPlaceHolder.h"
+#import <ZWLimitCounter/UITextView+ZWLimitCounter.h>
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *firstTextView;
 
@@ -18,14 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    self.firstTextView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。";
-//    self.firstTextView.layer.borderWidth = 1;
-//    self.firstTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.firstTextView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。";
+    self.firstTextView.zw_limitCount = 30;
+    self.firstTextView.layer.borderWidth = 1;
+    self.firstTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 300, [UIScreen mainScreen].bounds.size.width, 80)];
+    CGRect rect = CGRectMake(5, 230, [UIScreen mainScreen].bounds.size.width-10, 80);
+    UITextView *textView = [[UITextView alloc] initWithFrame:rect];
     textView.layer.borderWidth = 1;
+    textView.font = [UIFont systemFontOfSize:14];
     textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    textView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。";
+    textView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。";
+    textView.zw_limitCount = 30;
+    textView.zw_placeHolderColor = [UIColor redColor];
     [self.view addSubview:textView];
 }
 
