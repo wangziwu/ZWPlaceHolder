@@ -29,9 +29,12 @@
     textView.layer.borderWidth = 1;
     textView.font = [UIFont systemFontOfSize:14];
     textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    //文字设置居右、placeHolder会跟随设置
+//    textView.textAlignment = NSTextAlignmentRight;
     textView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。";
     textView.zw_limitCount = 30;
     textView.zw_placeHolderColor = [UIColor redColor];
+    
     [self.view addSubview:textView];
 }
 
