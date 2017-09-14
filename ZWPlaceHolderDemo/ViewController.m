@@ -19,10 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.firstTextView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。";
-    self.firstTextView.zw_limitCount = 30;
     self.firstTextView.layer.borderWidth = 1;
     self.firstTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.firstTextView.zw_placeHolder = @"向厂家反馈同业相关活动、产品信息、用于市场分析。向厂家反馈同业相关活动、产品信息、用于市场分析。";
+    self.firstTextView.zw_limitCount = 30;
+    self.firstTextView.text = @"预留信息案点击啊点击";
     
     CGRect rect = CGRectMake(5, 230, [UIScreen mainScreen].bounds.size.width-10, 80);
     UITextView *textView = [[UITextView alloc] initWithFrame:rect];

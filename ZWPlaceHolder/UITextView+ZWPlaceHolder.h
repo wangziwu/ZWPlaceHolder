@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface UITextView (ZWPlaceHolder)
-/** placeHolder*/
+/** 
+ *  UITextView+placeholder
+ */
 @property (nonatomic, copy) NSString *zw_placeHolder;
-/** placeHolderColor*/
+/** 
+ *  IQKeyboardManager等第三方框架会读取placeholder属性并创建UIToolbar展示
+ */
+@property (nonatomic, copy) NSString *placeholder;
+/** 
+ *  placeHolder颜色
+ */
 @property (nonatomic, strong) UIColor *zw_placeHolderColor;
-/** placeHolderLabel*/
-@property (nonatomic, readonly) UILabel *zw_placeHolderLabel;
+
 @end

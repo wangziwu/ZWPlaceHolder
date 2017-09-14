@@ -24,6 +24,7 @@ static char labHeightKey;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     @try {
         [self removeObserver:self forKeyPath:@"layer.borderWidth"];
+        [self removeObserver:self forKeyPath:@"text"];
     } @catch (NSException *exception) {
         
     } @finally {
@@ -77,10 +78,16 @@ static char labHeightKey;
 }
 #pragma mark - update
 - (void)updateLimitCount{
-    if (self.text.length>self.zw_limitCount) {
-        self.text = [self.text substringToIndex:self.zw_limitCount];
+    if (self.text.length > self.zw_limitCount) {
+        UITextRange *markedRange = [self markedTextRange];
+        if (markedRange) {
+            return;
+        }
+        NSRange range = [self.text rangeOfComposedCharacterSequenceAtIndex:self.zw_limitCount];
+        self.text = [self.text substringToIndex:range.location];
     }
     NSString *showText = [NSString stringWithFormat:@"%lu/%ld",(unsigned long)self.text.length,(long)self.zw_limitCount];
+    self.zw_inputLimitLabel.text = showText;
     NSMutableAttributedString *attrString = [[NSMutableAttributedString
                                               alloc] initWithString:showText];
     NSUInteger length = [showText length];
@@ -93,7 +100,8 @@ static char labHeightKey;
     self.zw_inputLimitLabel.attributedText = attrString;
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"layer.borderWidth"]) {
+    if ([keyPath isEqualToString:@"layer.borderWidth"]||
+        [keyPath isEqualToString:@"text"]) {
         [self updateLimitCount];
     }
 }
@@ -111,6 +119,7 @@ static char labHeightKey;
                                                      name:UITextViewTextDidChangeNotification
                                                    object:self];
         [self addObserver:self forKeyPath:@"layer.borderWidth" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:nil];
         [self configTextView];
     }
     return label;

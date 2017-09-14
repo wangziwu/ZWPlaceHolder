@@ -9,6 +9,10 @@
 #import "UITextView+ZWPlaceHolder.h"
 #import <objc/runtime.h>
 static const void *zw_placeHolderKey;
+
+@interface UITextView ()
+@property (nonatomic, readonly) UILabel *zw_placeHolderLabel;
+@end
 @implementation UITextView (ZWPlaceHolder)
 +(void)load{
     [super load];
@@ -16,6 +20,8 @@ static const void *zw_placeHolderKey;
                                    class_getInstanceMethod(self.class, @selector(zwPlaceHolder_swizzling_layoutSubviews)));
     method_exchangeImplementations(class_getInstanceMethod(self.class, NSSelectorFromString(@"dealloc")),
                                    class_getInstanceMethod(self.class, @selector(zwPlaceHolder_swizzled_dealloc)));
+    method_exchangeImplementations(class_getInstanceMethod(self.class, NSSelectorFromString(@"setText:")),
+                                   class_getInstanceMethod(self.class, @selector(zwPlaceHolder_swizzled_setText:)));
 }
 #pragma mark - swizzled
 - (void)zwPlaceHolder_swizzled_dealloc {
@@ -34,6 +40,12 @@ static const void *zw_placeHolderKey;
     }
     [self zwPlaceHolder_swizzling_layoutSubviews];
 }
+- (void)zwPlaceHolder_swizzled_setText:(NSString *)text{
+    [self zwPlaceHolder_swizzled_setText:text];
+    if (self.zw_placeHolder) {
+        [self updatePlaceHolder];
+    }
+}
 #pragma mark - associated
 -(NSString *)zw_placeHolder{
     return objc_getAssociatedObject(self, &zw_placeHolderKey);
@@ -47,6 +59,12 @@ static const void *zw_placeHolderKey;
 }
 -(void)setZw_placeHolderColor:(UIColor *)zw_placeHolderColor{
     self.zw_placeHolderLabel.textColor = zw_placeHolderColor;
+}
+-(NSString *)placeholder{
+    return self.zw_placeHolder;
+}
+-(void)setPlaceholder:(NSString *)placeholder{
+    self.zw_placeHolder = placeholder;
 }
 #pragma mark - update
 - (void)updatePlaceHolder{

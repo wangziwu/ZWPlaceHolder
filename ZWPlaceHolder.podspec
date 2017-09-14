@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name    = 'ZWPlaceHolder'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.summary = '快速实现UITextView的placeholder'
   s.homepage  = 'https://github.com/wangziwu/ZWPlaceHolder'
   s.license = 'MIT'

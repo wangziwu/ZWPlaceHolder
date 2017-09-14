@@ -6,5 +6,5 @@ target 'ZWPlaceHolderDemo' do
  use_frameworks!
 
   # Pods for ZWPlaceHolderDemo
-pod 'ZWLimitCounter', 		'~> 0.0.2'
+pod 'ZWLimitCounter', 		'~> 0.0.4'
 end
